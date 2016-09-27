@@ -15,7 +15,7 @@ public class StartBot {
 	private static RaadBot raadBot;
 
 	public static void main(String[] args) {
-		raadBotChatter = new RaadBotChatter("#rsvier");
+		raadBotChatter = new RaadBotChatter(/*"#rsvierGalgje"*/);
 		raadBot = new RaadBot();
 		try {
 			raadBotChatter.connect("openirc.snt.utwente.nl");
@@ -23,6 +23,15 @@ public class StartBot {
 		} catch (IOException | IrcException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public static void addOtherInput(String input){
+		if(input.length() > 1){
+			raadBot.addToGeradenWoorden(input);
+		}
+		else if(input.length() == 1){
+			raadBot.addToGeradenLetters(input.charAt(0));
 		}
 	}
 	

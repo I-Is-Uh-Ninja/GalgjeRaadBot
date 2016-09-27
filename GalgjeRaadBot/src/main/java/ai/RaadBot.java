@@ -92,6 +92,14 @@ public class RaadBot {
         return letter;
     }
     
+    public void addToGeradenLetters(char letter){
+    	geradenLetters += letter;
+    }
+    
+    public void addToGeradenWoorden(String woord){
+    	alGeradenWoorden.add(woord);
+    }
+    
     private char genereerLetter(){
         double percentage = Math.random() * 100;
         //System.out.println("Percentile: " + percentage);

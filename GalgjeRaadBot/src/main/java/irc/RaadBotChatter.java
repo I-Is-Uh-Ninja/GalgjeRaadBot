@@ -32,10 +32,13 @@ public class RaadBotChatter extends PircBot {
 			StartBot.handleRaden(teRadenWoord);
 		}
 		
-		if(message.contains("*")){
+		if(message.contains("*") && (sender.contains("WoordBot") || sender.contains("GalgjeBot"))){
 			lastKnownWord = message.replaceAll(" ", "").replaceAll("\\*", "-").trim();
 		}
-		if (message.contains("beurt") && sender.contains("GalgjeBot")){
+		if(message.contains("-") && (sender.contains("WoordBot") || sender.contains("GalgjeBot"))){
+			lastKnownWord = message.trim();
+		}
+		if (message.contains("beurt") && (sender.contains("WoordBot") || sender.contains("GalgjeBot"))){
 			if(message.contains(this.getName())){
 				myTurn = true;
 				System.out.println("Hoera, het is mijn beurt!");
@@ -48,7 +51,7 @@ public class RaadBotChatter extends PircBot {
 				System.out.println("Idling");
 			}
 		}
-		if (message.contains("gewonnen") || message.contains("verloren")){
+		if ((message.contains("gewonnen") || message.contains("verloren")) && (sender.contains("WoordBot") || sender.contains("GalgjeBot"))){
 			StartBot.resetBot();
 			if (message.contains(this.getName())){
 				if(message.contains("gewonnen")){
@@ -58,6 +61,14 @@ public class RaadBotChatter extends PircBot {
 					sendMessage("Aww :(");
 				}
 			}
+		}
+		if(message.startsWith("!raad") && !sender.equals(this.getName())){
+			String otherPlayerOutput = message.substring(5).trim();
+			StartBot.addOtherInput(otherPlayerOutput);
+		}
+		if(message.startsWith("!zeg")){
+			String bericht = message.substring(4).trim();
+			sendMessage(bericht);
 		}
 	}
 	
